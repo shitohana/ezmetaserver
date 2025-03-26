@@ -1,0 +1,6 @@
+models:
+  aioner:
+    path: "/app/pretrained_models/AIONER/Bioformer-softmax-AIONER.h5"
+    checkpoint: "/app/pretrained_models/bioformer-cased-v1.0"
+    lowercase: false
+    model_type: 1

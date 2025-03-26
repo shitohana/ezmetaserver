@@ -1,0 +1,55 @@
+version: '3.3'
+
+services:
+  nlp:
+    build:
+      context: ./nlp
+      dockerfile: Dockerfile
+    container_name: ezmetanlp-service
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./nlp/app:/app/app
+      - ./nlp/instance:/app/instance
+    environment:
+      - CONFIG_FILE=/app/instance/config.yaml
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  dump:
+    build:
+      context: ./dump
+      dockerfile: Dockerfile
+    container_name: ezmetadump-service
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./dump/src:/app/src
+    environment:
+      - ENVIRONMENT=development
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  nginx:
+    image: nginx:latest
+    container_name: ezmeta-gateway
+    ports:
+      - "9090:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf  # Changed path
+    depends_on:
+      - nlp
+      - dump
+    restart: unless-stopped
+
+networks:
+  default:
+    driver: bridge
