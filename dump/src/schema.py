@@ -1,6 +1,6 @@
-from pydantic import BaseModel, Field
 from typing import List, Optional
-from pathlib import Path
+
+from pydantic import BaseModel, Field
 
 
 class EzMetaFetchRequest(BaseModel):
@@ -53,8 +53,8 @@ class EzMetaFetchResponse(BaseModel):
         default=None,
         description="All dumped IDs"
     )
-    metadata: List[dict] = Field(
-        default_factory=list,
+    metadata: dict = Field(
+        default_factory=dict,
         description="Metadata records for the requested IDs"
     )
     status: str = Field(

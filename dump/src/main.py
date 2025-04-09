@@ -1,12 +1,10 @@
-from flask import Flask, request, jsonify, abort
-from fastapi import FastAPI, HTTPException
-import asyncio
-from typing import List
-import pandas as pd
-import json
+import httpx
+from fastapi import FastAPI, HTTPException, Query
 
-from ezmetafetch import SearchTask, FetchTask, run_coros_limited, ConfigModel, Base
+from requests import NCBI_ESEARCH_URL, DATABASE, search_ncbi_ids, fetch_metadata
+from rename import select_and_rename_common_columns
 from schema import EzMetaFetchResponse, EzMetaFetchRequest
+
 
 app = FastAPI(
     title="EzMetaFetch API",
@@ -14,8 +12,9 @@ app = FastAPI(
     root_path="/api/v1/dump"
 )
 
-@app.post("/api/ezmetafetch", response_model=EzMetaFetchResponse)
-async def fetch_metadata(request: EzMetaFetchRequest):
+
+@app.post("/fetch", response_model=EzMetaFetchResponse)
+async def fetch_metadata_handler(request: EzMetaFetchRequest):
     """Fetch metadata from NCBI databases using ezmetafetch"""
 
     # Validate input
@@ -25,75 +24,79 @@ async def fetch_metadata(request: EzMetaFetchRequest):
             detail="Either terms or ids must be provided"
         )
 
-    # Create configuration
-    config = ConfigModel(
-        http={"api_key": request.api_key, "rate_limit": 10 if request.api_key else 3},
-        search={"ids_per_request": min(100, request.max_results)},
-        fetch={"ids_per_request": min(100, request.max_results)}
-    )
-
-    # Initialize base model
-    model = Base(
-        db=request.db,
-        config=config
-    )
-
-    # Run the search and fetch operations
     try:
-        # Search for IDs if terms are provided
-        search_ids = set()
-        if request.terms:
-            coros = [
-                SearchTask(
-                    term=" OR ".join(request.terms),
-                    db=request.db,
-                    retmax=request.max_results,
-                    api_key=request.api_key
-                ).dump(with_model=model)
-            ]
-            search_results = await run_coros_limited(coros, model.config.http.rate_limit)
-            search_ids = set.union(*search_results)
+        async with httpx.AsyncClient() as client:
+            # Step 1: Search for IDs if terms are provided
+            search_ids = await search_ncbi_ids(
+                client,
+                request.terms,
+                request.max_results,
+                request.api_key
+            ) if request.terms else []
 
-        # Combine with provided IDs if any
-        all_ids = list(search_ids.union(set(request.ids or [])))[:request.max_results]
-        print(f"Search IDs: {all_ids}")
+            # Combine with provided IDs if any
+            provided_ids = request.ids or []
+            all_ids = list(set(search_ids).union(set(provided_ids)))[:request.max_results]
 
-        # Fetch metadata for all IDs
-        if all_ids:
-            coros = [
-                FetchTask(
-                    batch_uids=all_ids,
-                    db=request.db,
-                    api_key=request.api_key
-                ).dump(with_model=model)
-            ]
-            fetch_results = await run_coros_limited(coros, model.config.http.rate_limit)
-            metadata_df = pd.concat(fetch_results)
+            # Step 2: Fetch metadata for all IDs
+            if all_ids:
+                data = await fetch_metadata(client, all_ids, request.api_key)
 
-            # Convert to list of dicts for JSON serialization
-            metadata_records = json.loads(metadata_df.to_json(orient="records"))
+                if not data.empty:
+                    result = select_and_rename_common_columns(data)
+                    metadata_dict = result.to_dict('split')
 
+                    return EzMetaFetchResponse(
+                        search_ids=search_ids,
+                        ids=all_ids,
+                        metadata=metadata_dict,
+                        status="success",
+                        message=f"Retrieved metadata for {len(result)} records"
+                    )
+
+            # Return empty result if no IDs or no data found
             return EzMetaFetchResponse(
                 search_ids=search_ids,
-                ids=all_ids,
-                metadata=metadata_records,
-                status="success",
-                message=f"Retrieved metadata for {len(metadata_records)} records"
-            )
-        else:
-            return EzMetaFetchResponse(
-                search_ids=[],
-                metadata=[],
+                ids=all_ids if all_ids else [],
+                metadata={},
                 status="success",
                 message="No records found matching the criteria"
             )
 
+    except httpx.HTTPError as e:
+        status_code = 500
+        if hasattr(e, 'response') and e.response is not None:
+            status_code = e.response.status_code
+
+        raise HTTPException(
+            status_code=status_code,
+            detail=f"HTTP error: {str(e)}"
+        )
     except Exception as e:
         raise HTTPException(
             status_code=500,
             detail=f"Error processing request: {str(e)}"
         )
 
+
 @app.get("/health")
 def health_check():
     return {"status": "healthy"}
+
+
+@app.get("/peek")
+async def peek(term: str = Query(..., description="Search term to query NCBI")):
+    """Get count of records matching a term in NCBI SRA database"""
+    try:
+        url = f"{NCBI_ESEARCH_URL}?db={DATABASE}&term={term}&rettype=count&retmode=json"
+        async with httpx.AsyncClient() as client:
+            response = await client.get(url)
+            response.raise_for_status()
+            data = response.json()
+            count = data.get("esearchresult", {}).get("count", "0")
+            return {"count": count}
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error fetching count from NCBI: {str(e)}"
+        )

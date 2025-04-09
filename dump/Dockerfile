@@ -8,7 +8,7 @@ RUN apt-get update && \
 WORKDIR /app
 
 COPY requirements.txt .
-RUN pip install -r requirements.txt --no-deps --ignore-installed
+RUN pip install -r requirements.txt
 
 RUN pip install gunicorn
 COPY src/ src/

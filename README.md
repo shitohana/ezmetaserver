@@ -41,7 +41,10 @@ The metadata fetching service provides functionality to:
 
 - Search NCBI databases using terms
 - Fetch detailed metadata for specific NCBI IDs
-- Process and normalize the returned XML data
+- Process and normalize the returned XML data into structured formats
+- Extract and organize download links for SRA data files
+
+The service is built with FastAPI and provides both synchronous and asynchronous endpoints for efficient processing of metadata requests.
 
 ### EzMetaNLP (Port 8000)
 
@@ -65,7 +68,7 @@ The NLP service uses advanced biomedical language models to:
    cd ezmetaserver
    ```
 
-2. Download the [AIONER pretrained models](https://huggingface.co/lingbionlp/AIONER-0415/tree/main) and 
+2. Download the [AIONER pretrained models](https://huggingface.co/lingbionlp/AIONER-0415/tree/main) and
    unpack `pretrained_models.zip`. Move the `pretrained_models` folder in `ezmetaserver/nlp/pretrained_models`.
 
 3. Build and start the services:
@@ -104,7 +107,7 @@ For higher rate limits when accessing NCBI databases, you can provide an API key
 ### Fetching Metadata from NCBI
 
 ```bash
-curl -X POST "http://localhost:9090/api/v1/dump/api/ezmetafetch" \
+curl -X POST "http://localhost:9090/api/v1/dump/fetch" \
   -H "Content-Type: application/json" \
   -d '{
     "terms": ["SARS-CoV-2", "human"],
@@ -118,6 +121,13 @@ The dump service can be configured through API parameters, including:
 - Rate limits
 - Maximum results
 - API key for higher rate limits
+
+### Checking Record Availability
+
+```bash
+curl -X GET "http://localhost:9090/api/v1/dump/peek?term=SARS-CoV-2" \
+  -H "Content-Type: application/json"
+```
 
 ### Processing Text with NLP
 
@@ -146,11 +156,14 @@ Interactive API documentation is available at:
 
 #### EzMetaDump Service
 
-- `POST /api/v1/dump/api/ezmetafetch` - Fetch metadata from NCBI databases
+- `POST /api/v1/dump/fetch` - Fetch metadata from NCBI databases
+- `GET /api/v1/dump/peek` - Check record availability in NCBI databases
+- `GET /api/v1/dump/health` - Check the health status of the dump service
 
 #### EzMetaNLP Service
 
 - `POST /api/v1/nlp/process` - Process text to identify named entities
+- `GET /api/v1/nlp/health` - Check the health status of the NLP service
 
 #### Health Check
 
