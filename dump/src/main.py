@@ -16,7 +16,6 @@ app = FastAPI(
 @app.post("/fetch", response_model=EzMetaFetchResponse)
 async def fetch_metadata_handler(request: EzMetaFetchRequest):
     """Fetch metadata from NCBI databases using ezmetafetch"""
-
     # Validate input
     if not request.terms and not request.ids:
         raise HTTPException(

@@ -16,4 +16,4 @@ COPY src/ src/
 RUN ldconfig
 EXPOSE 8001
 
-CMD ["gunicorn", "--bind", "0.0.0.0:8001", "--workers", "3", "--worker-class", "uvicorn.workers.UvicornWorker", "--pythonpath", "/app/src", "--preload", "--timeout", "300", "main:app", "--forwarded-allow-ips", "*"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8001", "--workers", "8", "--worker-class", "uvicorn.workers.UvicornWorker", "--pythonpath", "/app/src", "--preload", "--timeout", "300", "main:app", "--forwarded-allow-ips", "*"]

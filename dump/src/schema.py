@@ -16,12 +16,8 @@ class EzMetaFetchRequest(BaseModel):
         description="List of specific IDs to fetch metadata for"
     )
 
-    # Configuration
-    db: str = Field(
-        default="sra",
-        description="Database to query (e.g., 'sra', 'biosample', etc.)"
-    )
     max_results: int = Field(
+        gt=0, le=1000,
         default=100,
         description="Maximum number of results to return"
     )
