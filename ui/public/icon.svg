@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.0" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg class="el-tooltip" width="0" height="0" color-interpolation-filters="sRGB" style="margin:auto" version="1.0" viewBox="0 0 340.000000 250.000000" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs>
+<pattern id="a" width="100%" height="100%" patternUnits="userSpaceOnUse">
+<image width="100%" height="100%" xlink:href="https://www.logoai.com/img/watermark/LOGOAI-watermark.png"></image>
+</pattern>
+</defs>
+</svg>
+<rect width="100%" height="100%" fill="transparent"/>
+<svg color-interpolation-filters="sRGB" style="margin:auto" data-v-0dd9719b="" version="1.0" viewBox="0 -0.000005543770839722129 100 100.00000762939453" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<rect class="background" width="100%" height="100%" display="none" fill="#fff" data-v-0dd9719b=""/>
+<rect class="watermarklayer" width="100%" height="100%" display="none" fill="url(#a)" data-v-0dd9719b=""/>
+<g class="iconsvg-imagesvg" fill="#333" data-v-0dd9719b="">
+<rect class="image-rect" width="100" height="100" fill="#333" fill-opacity="0" stroke-width="2"/>
+<svg class="image-svg-svg bn" width="100" height="100" overflow="visible" viewBox="0 0 60 63.45177664974619">
+<g mask="url(#d)" hollow-target="iconBnFill">
+<svg width="60" height="63.452" filter="url(#c)" overflow="visible" filtersec="colorsb6310927403" viewBox="0 0.00058 61.46301 64.99914" xmlns="http://www.w3.org/2000/svg">
+<g transform="scale(1)">
+<g fill="#000">
+<path d="M53.055 8.112c-6.988-1.302-13.052-4.276-17.09-6.674a10.246 10.246 0 0 0-10.467 0C21.461 3.836 15.397 6.81 8.408 8.112 3.542 9.019 0 13.244 0 18.194v28.612c0 4.95 3.542 9.175 8.408 10.082 6.988 1.302 13.052 4.276 17.09 6.674a10.246 10.246 0 0 0 10.468 0c4.037-2.398 10.101-5.372 17.09-6.674 4.865-.907 8.407-5.132 8.407-10.082V18.194c0-4.95-3.542-9.175-8.408-10.082zm5.75 38.694c0 3.654-2.623 6.796-6.237 7.47-7.436 1.386-13.87 4.573-17.96 7.002a7.588 7.588 0 0 1-7.753 0c-4.088-2.43-10.524-5.616-17.96-7.002-3.613-.674-6.237-3.816-6.237-7.47V18.194c0-3.654 2.623-6.796 6.238-7.47 7.436-1.386 13.87-4.573 17.96-7.002a7.583 7.583 0 0 1 7.752 0c4.088 2.429 10.523 5.615 17.96 7.001 3.614.674 6.237 3.816 6.237 7.47v28.613z"/>
+<path d="M52.142 11.427C44.78 10.055 38.412 6.903 34.367 4.5a7.124 7.124 0 0 0-7.271 0c-4.045 2.403-10.412 5.556-17.775 6.928-3.39.632-5.851 3.578-5.851 7.005v28.136c0 3.428 2.46 6.374 5.851 7.006 7.363 1.372 13.73 4.525 17.775 6.928a7.12 7.12 0 0 0 7.27 0c4.046-2.403 10.413-5.556 17.775-6.928 3.39-.632 5.852-3.579 5.852-7.006V18.433c0-3.428-2.461-6.373-5.851-7.006z"/>
+</g>
+</g>
+<defs>
+<filter id="c">
+<feColorMatrix values="0 0 0 0 0.19921875  0 0 0 0 0.19921875  0 0 0 0 0.19921875  0 0 0 1 0"/>
+</filter>
+</defs>
+</svg>
+<g filter="url(#b)">
+<svg class="image-svg-letter" x="7.5" y="7.9315" width="45" height="47.589" viewBox="0 0 79.84800000000001 48.96000000000001" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<path transform="translate(-3.384 48.96)" d="m45.07-48.96h-41.69v7.63h6.2v33.7h-6.2v7.63h41.69v-16.42h-7.77v8.43h-19.08v-12.17h16.48v-7.99h-16.48v-12.82h19.08v8.43h7.77zm38.16 36.14h-7.77v5.84h-12.75l19.87-21.6h-0.07v-5.48h-31.46v12.24h7.77v-5.25h12.75l-20.38 22.17v4.9h32.04z"/>
+</svg>
+</g>
+</g>
+<mask id="d">
+<g fill="#fff">
+<svg width="60" height="63.452" overflow="visible" filtersec="colorsb6310927403" viewBox="0 0.00058 61.46301 64.99914" xmlns="http://www.w3.org/2000/svg">
+<g transform="scale(1)">
+<g>
+<path d="M53.055 8.112c-6.988-1.302-13.052-4.276-17.09-6.674a10.246 10.246 0 0 0-10.467 0C21.461 3.836 15.397 6.81 8.408 8.112 3.542 9.019 0 13.244 0 18.194v28.612c0 4.95 3.542 9.175 8.408 10.082 6.988 1.302 13.052 4.276 17.09 6.674a10.246 10.246 0 0 0 10.468 0c4.037-2.398 10.101-5.372 17.09-6.674 4.865-.907 8.407-5.132 8.407-10.082V18.194c0-4.95-3.542-9.175-8.408-10.082zm5.75 38.694c0 3.654-2.623 6.796-6.237 7.47-7.436 1.386-13.87 4.573-17.96 7.002a7.588 7.588 0 0 1-7.753 0c-4.088-2.43-10.524-5.616-17.96-7.002-3.613-.674-6.237-3.816-6.237-7.47V18.194c0-3.654 2.623-6.796 6.238-7.47 7.436-1.386 13.87-4.573 17.96-7.002a7.583 7.583 0 0 1 7.752 0c4.088 2.429 10.523 5.615 17.96 7.001 3.614.674 6.237 3.816 6.237 7.47v28.613z"/>
+<path d="M52.142 11.427C44.78 10.055 38.412 6.903 34.367 4.5a7.124 7.124 0 0 0-7.271 0c-4.045 2.403-10.412 5.556-17.775 6.928-3.39.632-5.851 3.578-5.851 7.005v28.136c0 3.428 2.46 6.374 5.851 7.006 7.363 1.372 13.73 4.525 17.775 6.928a7.12 7.12 0 0 0 7.27 0c4.046-2.403 10.413-5.556 17.775-6.928 3.39-.632 5.852-3.579 5.852-7.006V18.433c0-3.428-2.461-6.373-5.851-7.006z"/>
+</g>
+</g>
+</svg>
+</g>
+<g fill="#000">
+<svg class="image-svg-letter" x="7.5" y="7.9315" width="45" height="47.589" viewBox="0 0 79.84800000000001 48.96000000000001" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<path transform="translate(-3.384 48.96)" d="m45.07-48.96h-41.69v7.63h6.2v33.7h-6.2v7.63h41.69v-16.42h-7.77v8.43h-19.08v-12.17h16.48v-7.99h-16.48v-12.82h19.08v8.43h7.77zm38.16 36.14h-7.77v5.84h-12.75l19.87-21.6h-0.07v-5.48h-31.46v12.24h7.77v-5.25h12.75l-20.38 22.17v4.9h32.04z"/>
+</svg>
+</g>
+</mask>
+</svg>
+<defs>
+<filter id="b">
+<feColorMatrix class="icon-fecolormatrix" values="0 0 0 0 0.19921875  0 0 0 0 0.19921875  0 0 0 0 0.19921875  0 0 0 1 0"/>
+</filter>
+</defs>
+</g>
+</svg>
+</svg>

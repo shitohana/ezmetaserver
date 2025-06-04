@@ -1,0 +1,310 @@
+@use "loading-dna";
+
+* {
+  box-sizing: border-box;
+}
+
+p {
+  margin: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}
+
+.application {
+  .MuiDataGrid-root {
+    margin: 16px;
+  }
+}
+
+.search-bar-wrapper {
+  position: relative;
+
+  .s-message {
+    width: 560px;
+    position: absolute;
+    z-index: 10;
+    left: 50%;
+    margin-top: 16px;
+    margin-left: calc((-560px) / 2);
+    transition: transform 0.15s ease;
+    transform: translateY(-95px);
+
+    &.visible {
+      transform: translateY(0);
+    }
+  }
+}
+
+.search-bar {
+  margin: auto;
+  padding: 20px 0;
+  background: #f6f6ff;
+  position: relative;
+  z-index: 20;
+
+  .input-area {
+    max-width: 560px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    padding: 4px 6px 4px 16px;
+    position: relative;
+
+    .results-counter {
+      position: absolute;
+      left: 100%;
+      margin-left: 10px;
+      transition: opacity 0.15s ease;
+      opacity: 0;
+    }
+
+    .loading-wrapper {
+      position: absolute;
+      left: -50px;
+      transition: opacity 0.15s ease;
+      opacity: 0;
+    }
+
+    .visible {
+      opacity: 1;
+    }
+
+    .MuiInputBase-root {
+      flex: 1 1 100%;
+    }
+  }
+}
+
+.col-select {
+  max-width: 900px;
+  margin: auto;
+  padding: 16px 0;
+
+  .filled {
+    padding: 0;
+    //display: flex;
+    //align-items: center;
+    //text-align: center;
+
+    .filled-line {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 12px;
+      font-weight: bold;
+      .l {
+        width: 80px;
+        height: 10px;
+        border-radius: 10px;
+        display: block;
+        box-sizing: border-box;
+        border: 1px solid rgba(0, 0, 0, 0.8);
+        overflow: hidden;
+
+        .filled-area {
+          height: 8px;
+          display: block;
+          background: #888;
+          &.full {
+            background: #00d500;
+          }
+          &.norm {
+            background: #ffe600;
+          }
+          &.bad {
+            background: #c00;
+          }
+        }
+      }
+    }
+  }
+
+  .MuiAlert-root {
+    margin-bottom: 16px;
+    position: relative;
+
+    .ai-start {
+      position: absolute;
+      right: 16px;
+      top: 16px;
+    }
+  }
+
+  .MuiPaper-root {
+    overflow: hidden;
+  }
+
+  .MuiTableHead-root {
+    white-space: nowrap;
+    .MuiTableCell-root {
+      font-weight: bold;
+    }
+  }
+
+  .MuiTableBody-root {
+    .MuiTableRow-root {
+      &:last-child td,
+      &:last-child th {
+        border: 0;
+      }
+    }
+  }
+
+  .MuiTableCell-root {
+    white-space: nowrap;
+
+    &:first-child {
+      padding: 0 6px;
+    }
+
+    .MuiChip-root {
+      border-radius: 4px;
+      padding-right: 5px;
+      height: 26px;
+    }
+
+    .MuiBadge-badge {
+      background: #ccc;
+      border: 1px solid #222;
+      color: #222;
+      //transform: scale(0.9);
+      top: 13px;
+    }
+  }
+
+  .MuiBadge-root {
+    margin-right: 14px;
+  }
+}
+
+.MuiDialog-container {
+  .MuiToolbar-root {
+    background: #eee !important;
+
+    .title {
+      font-size: 20px;
+      margin-left: 10px;
+      font-weight: bold;
+    }
+  }
+}
+
+.results-frame {
+  .downloads {
+    margin-left: auto;
+    display: flex;
+    gap: 8px;
+  }
+}
+
+.results-filters {
+  padding: 16px;
+  background: rgb(255, 252, 219);
+
+  .MuiTabPanel-root {
+    svg {
+      display: block;
+      margin: auto;
+    }
+  }
+
+  .taglist {
+    user-select: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    .MuiFormControlLabel-root {
+      margin-left: 0;
+      margin-right: 0;
+      background: #eee;
+      border-radius: 3px;
+      height: 28px;
+      padding-right: 12px;
+    }
+  }
+}
+
+.results-table {
+  padding: 16px;
+
+  .MuiPaper-root {
+    margin-bottom: 16px;
+  }
+
+  .result {
+    // margin-bottom: 16px;
+    padding: 12px;
+
+    .result-head {
+      display: flex;
+      align-items: flex-start;
+      padding: 12px 0;
+      margin-left: -8px;
+
+      .id {
+        display: flex;
+        align-items: center;
+        font-size: 18px;
+        font-weight: bold;
+        margin: -9px 12px -9px 0;
+      }
+
+      .result-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+
+        .MuiChip-root {
+          border-radius: 3px;
+        }
+      }
+    }
+
+    p {
+      // padding: 0 12px;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+  }
+
+  .expanded {
+    max-height: 500px;
+
+    .MuiDataGrid-root {
+      border-radius: 0;
+      margin: 0 -1px -1px -1px;
+      box-shadow: none;
+
+      .MuiButtonBase-root {
+        margin: -12px 0;
+      }
+    }
+  }
+}
+
+.MuiChip-root,
+.MuiFormControlLabel-root {
+  &.DISEASE {
+    background: rgb(255, 121, 121);
+  }
+  &.CELLLINE {
+    background: rgb(234, 255, 117);
+  }
+  &.SPECIES {
+    background: rgb(201, 201, 201);
+  }
+  &.VARIANT {
+    background: rgb(255 212 155);
+  }
+  &.CHEMICAL {
+    background: rgb(155, 255, 172);
+  }
+  &.GENE {
+    background: rgb(169, 159, 255);
+  }
+}

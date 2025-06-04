@@ -1,3 +1,5 @@
 
 .idea
 __pycache__
+pretrained_models.zip
+nlp/pretrained_models
