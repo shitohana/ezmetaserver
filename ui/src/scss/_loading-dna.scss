@@ -1,0 +1,84 @@
+.loading-dna {
+  position: relative;
+  display: inline-block;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+
+  &.active {
+    opacity: 1;
+  }
+
+  .dna-line {
+    height: 6px;
+    width: 6px * 6;
+    display: flex;
+
+    $tik: 0.16s;
+
+    span {
+      animation: scalex $tik * 12 linear infinite;
+
+      b {
+        display: block;
+        width: 4px;
+        height: 4px;
+        border-radius: 4px;
+        background: #222;
+        margin: 0 1px;
+        animation: wavex $tik * 12 ease-in-out infinite;
+      }
+
+      @for $i from 1 through 6 {
+        &:nth-child(#{$i}),
+        &:nth-child(#{$i}) b {
+          animation-delay: -($tik * 7) + $tik * $i;
+        }
+      }
+    }
+
+    &.reverse {
+      position: absolute;
+      left: 0;
+      top: 0;
+
+      span {
+        @for $i from 1 through 6 {
+          &:nth-child(#{$i}),
+          &:nth-child(#{$i}) b {
+            animation-delay: -($tik * 13) + $tik * $i;
+          }
+        }
+      }
+    }
+
+    @keyframes scalex {
+      0% {
+        transform: scale(1);
+      }
+      25% {
+        transform: scale(1.2);
+      }
+      50% {
+        transform: scale(1);
+      }
+      75% {
+        transform: scale(0.8);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    @keyframes wavex {
+      0% {
+        transform: translateY(-8px);
+      }
+      50% {
+        transform: translateY(8px);
+      }
+      100% {
+        transform: translateY(-8px);
+      }
+    }
+  }
+}

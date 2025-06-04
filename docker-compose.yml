@@ -45,6 +45,7 @@ services:
       - "9090:80"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf  # Changed path
+      - ./ui/dist:/usr/share/nginx/html
     depends_on:
       - nlp
       - dump

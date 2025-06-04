@@ -1,0 +1,14 @@
+#!/bin/bash
+DST=ibezdvornykh@195.209.233.203:/home/ibezdvornykh/Public/EzUI
+
+for dx in "dist"; do
+  echo $dx
+  rsync -arvz -e "ssh" \
+    --progress --exclude={__pycache__,.DS_Store} \
+    ./$dx/ $DST/$dx
+done
+
+for fn in "server.py"; do
+  scp $fn $DST/$fn
+done
+
